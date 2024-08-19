@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import os.path
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'main', 'students',
 ]
 
 MIDDLEWARE = [
@@ -48,7 +50,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+#  точка входа для нашего проекта (пользователь всегда пройдет через эти урлы)
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
@@ -75,8 +77,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'project5',
+        'USER': 'postgres'
     }
 }
 
@@ -115,14 +118,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 #  отвечает за формирование адреса доступа к статике
-STATIC_URL = 'static/'
-
-#  отвечает за место на диске, откуда необходимо подгружать статику
+STATIC_URL = '/static/'
+#
+# отвечает за место на диске, откуда необходимо подгружать статику
 STATICFILES_DIRS = (
-    BASE_DIR / 'static',
+    BASE_DIR / 'main/static',
+    BASE_DIR / 'students/static',
 )
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
