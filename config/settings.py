@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'dogs',
 ]
 
 MIDDLEWARE = [
@@ -74,10 +76,10 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'db_name',  # Название БД
-        'USER': 'postgres',  # Пользователь для подключения
-        'PASSWORD': 'secret',  # Пароль для этого пользователя
-        'HOST': '127.0.0.1',  # Адрес, на котором развернут сервер БД
+        'NAME': 'Django_20_alt_task_db3',  # Название БД
+        'USER': 'altair',  # Пользователь для подключения
+        'PASSWORD': '',  # Пароль для этого пользователя
+        'HOST': '127.0.0.1',  # Адрес, на котором развернут сервер БД ('local', 'localhost')
         'PORT': 5432,  # Порт, на котором работает сервер БД
     }
 }
@@ -116,10 +118,10 @@ USE_TZ = True
 #  отвечает за формирование адреса доступа к статике
 STATIC_URL = 'static/'
 
-#  отвечает за место на диске, откуда необходимо подгружать статику
-STATICFILES_DIRS = (
-    BASE_DIR / 'static',
-)
+# #  отвечает за место на диске, откуда необходимо подгружать статику
+# STATICFILES_DIRS = (
+#     BASE_DIR / 'static',
+# )
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
