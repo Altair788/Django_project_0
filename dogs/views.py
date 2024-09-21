@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from dogs.models import Dog
 
+
 # def index(request):
 #     return render(request, 'base.html')
 
@@ -10,8 +11,8 @@ def dogs_list(request):
     context = {'dogs': dogs}
     return render(request, 'dogs_list.html', context)
 
+
 def dogs_detail(request, pk):
     dog = get_object_or_404(Dog, pk=pk)
     context = {'dog': dog}
     return render(request, 'dogs_detail.html', context)
-
