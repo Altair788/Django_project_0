@@ -6,4 +6,4 @@ def students_list(request):
     if request.method == "POST":
         name = request.POST.get("name")
         print(f"name {name}")
-    return render(request, "index.html")
+    return render(request, "material_list.html")
