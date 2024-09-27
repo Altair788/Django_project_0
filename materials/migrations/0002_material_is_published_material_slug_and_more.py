@@ -11,17 +11,17 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AddField(
-            model_name='material',
+            model_name='materials',
             name='is_published',
             field=models.BooleanField(default=True, verbose_name='опубликовано'),
         ),
         migrations.AddField(
-            model_name='material',
+            model_name='materials',
             name='slug',
             field=models.CharField(blank=True, max_length=150, null=True, verbose_name='slug'),
         ),
         migrations.AddField(
-            model_name='material',
+            model_name='materials',
             name='views_count',
             field=models.IntegerField(default=0, verbose_name='просмотры'),
         ),
