@@ -1,18 +1,18 @@
-from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView
+
 from dogs.models import Dog
 
 
-# def index(request):
-#     return render(request, 'base.html')
-
-def dogs_list(request):
-    # получаем всех наших собак
-    dogs = Dog.objects.all()
-    context = {'dogs': dogs}
-    return render(request, 'dogs_list.html', context)
+class DogListView(ListView):
+    model = Dog
 
 
-def dogs_detail(request, pk):
-    dog = get_object_or_404(Dog, pk=pk)
-    context = {'dog': dog}
-    return render(request, 'dogs_detail.html', context)
+class DogDetailView(DetailView):
+    model = Dog
+
+
+class DogCreateView(CreateView):
+    model = Dog
+    fields = ('name', 'breed', 'date_born', 'photo')
+    success_url = reverse_lazy('dogs:dogs_list')
