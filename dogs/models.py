@@ -35,6 +35,11 @@ class Dog(models.Model):
     date_born = models.DateField(
         **NULLABLE, verbose_name="Дата рождения", help_text="Укажите дату рождения"
     )
+    views_counter = models.PositiveIntegerField(
+        verbose_name="Счетчик просмотров",
+        help_text="Укажите количество просмотров",
+        default=0
+    )
 
     def __str__(self):
         """

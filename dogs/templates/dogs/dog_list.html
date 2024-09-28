@@ -18,6 +18,10 @@
                             <div class="btn-group">
                                 <a class="btn btn-primary" href="{% url 'dogs:dogs_detail' dog.pk %}"
                                    role="button">Посмотреть</a>
+                                <a class="btn btn-primary" href="{% url 'dogs:dogs_update' dog.pk %}"
+                                   role="button">Редактировать</a>
+                                <a class="btn btn-primary" href="{% url 'dogs:dogs_delete' dog.pk %}"
+                                   role="button">Удалить</a>
                             </div>
 
                         </div>
