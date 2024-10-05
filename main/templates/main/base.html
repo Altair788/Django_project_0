@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="col-sm-8 col-md-7 py-4">
                     <h4 class="text-white">О нас</h4>
-                    <p class="text-muted">Компания BPA.</p>
+                    <p class="text-muted">КодСофт - Ваш надежный поставщик программного обеспечения</p>
                 </div>
                 {% include 'main/includes/inc_main_menu.html' %}
             </div>
@@ -33,8 +33,8 @@
     </div>
     <div class="navbar navbar-dark bg-dark box-shadow">
         <div class="container d-flex justify-content-between">
-            <a href="#" class="navbar-brand d-flex align-items-center">
-                <img src="{% static 'images/logo.png' %}"
+            <a href="{% url 'main:index' %}" class="navbar-brand d-flex align-items-center">
+                <img src="{% static 'images/logo.jpg' %}"
                      style="height: 40px; margin-right: 10px;">
                 <strong>КодСофт</strong>
             </a>
