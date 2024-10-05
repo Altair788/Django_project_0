@@ -34,12 +34,9 @@
     <div class="navbar navbar-dark bg-dark box-shadow">
         <div class="container d-flex justify-content-between">
             <a href="#" class="navbar-brand d-flex align-items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
-                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-                    <circle cx="12" cy="13" r="4"></circle>
-                </svg>
-                <strong>Album</strong>
+                <img src="{% static 'images/logo.png' %}"
+                     style="height: 40px; margin-right: 10px;">
+                <strong>КодСофт</strong>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
                     aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,9 +48,12 @@
 
 <main role="main">
 
-    <section class="jumbotron text-center">
+    <section class="jumbotron text-center" style="height: 150px; padding: 20px 0;">
         <div class="container">
-            <h1 class="jumbotron-heading">{{ title }}</h1>
+            <h1 class="jumbotron-heading">Наша команда</h1>
+            <a href="{% url 'main:create_student' %}" class="btn btn-primary my-2">Заказать разработку ПО</a>
+            <a href="{% url 'main:contact' %}" class="btn btn-secondary my-2">Подать резюме</a>
+            </p>
         </div>
     </section>
 

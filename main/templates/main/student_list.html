@@ -9,8 +9,11 @@
         <div class="card-body">
             <p class="card-text">
                 {% if object.is_active %}
+                <img src="/media/{{ object.avatar }}" class="img-fluid" />
                 {{ object | title }}
+
                 {% else %}
+                <img src="/media/{{ object.avatar }}" class="img-fluid" />
                 <span class="text-muted">{{ object | title }}</span>
                 {% endif %}
             </p>
@@ -32,5 +35,6 @@
         </div>
     </div>
 </div>
+
 {% endfor %}
 {% endblock %}
