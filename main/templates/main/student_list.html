@@ -9,9 +9,9 @@
         <div class="card-body">
             <p class="card-text">
                 {% if object.is_active %}
-                {{ object|title }}
+                {{ object.first_name }} {{ object.last_name }}
                 {% else %}
-                <span class="text-muted">{{ object|title }}</span>
+                <span class="text-muted">{{ object.first_name }} {{  object.last_name }}</span>
                 {% endif %}
             </p>
             <div class="d-flex justify-content-between align-items-center">
@@ -24,9 +24,9 @@
                        class="btn btn-sm btn-outline-secondary">Delete</a>
                 </div>
                 {% if object.is_active %}
-                <a class="btn btn-warning" href="{% url 'main:toggle_activity' object.pk %}">Деактивировать</a>
+                    <a class="btn btn-warning" href="{% url 'main:toggle_activity' object.pk %}">Деактивировать</a>
                 {% else %}
-                <a class="btn btn-success" href="{% url 'main:toggle_activity' object.pk %}">Активировать</a>
+                    <a class="btn btn-success" href="{% url 'main:toggle_activity' object.pk %}">Активировать</a>
                 {% endif %}
             </div>
         </div>
