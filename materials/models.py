@@ -4,7 +4,7 @@ from django.db import models
 
 
 class Material(models.Model):
-    title = models.CharField(max_length=150, verbose_name='название')
+    title = models.CharField(max_length=150, verbose_name='название', unique=True)
     body = models.TextField(verbose_name='содержимое')
 
     views_count = models.IntegerField(default=0, verbose_name='просмотры')
