@@ -3,6 +3,7 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from main.models import Student
+from main.forms import StudentForm
 
 
 def contact(request):
@@ -28,14 +29,19 @@ class StudentDetailView(DetailView):
 
 class StudentCreateView(CreateView):
     model = Student
-    fields = ('first_name', 'last_name', 'avatar')
+    # fields = ('first_name', 'last_name', 'avatar')
     success_url = reverse_lazy('main:index')
+
+    form_class = StudentForm
+
+
 
 
 class StudentUpdateView(UpdateView):
     model = Student
-    fields = ('first_name', 'last_name', 'avatar')
+    # fields = ('first_name', 'last_name', 'avatar')
     success_url = reverse_lazy('main:index')
+    form_class = StudentForm
 
 
 class StudentDeleteView(DeleteView):
