@@ -13,6 +13,8 @@ class Student(models.Model):
 
     is_active = models.BooleanField(default=True, verbose_name='учится')
 
+    email = models.CharField(max_length=150, verbose_name='email', unique=True, **NULLABLE)
+
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
