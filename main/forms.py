@@ -20,7 +20,10 @@ class StudentForm(StyleFormMixin, forms.ModelForm):
 
     
     def clean_email(self):
-        cleaned_data = self.cleaned_data['email']
+        cleaned_data = self.cleaned_data.get('email')
+
+        if cleaned_data is None:
+            return 'не указана'
 
         if 'sky.pro' not in cleaned_data:
             raise forms.ValidationError('Почта должна относиться к учебному заведению')
