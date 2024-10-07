@@ -27,7 +27,14 @@
                         </tr>
                         <tr>
                             <td>Почта</td>
-                            <td>{{ object.email }}</td>
+                            <td>
+                            {% if object.email %}
+                            {{ object.email }}
+
+                            {% else %}
+                             не указана
+                            {% endif %}
+                            </td>
                         </tr>
                     </table>
 
