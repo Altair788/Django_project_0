@@ -30,7 +30,6 @@ class StudentDetailView(DetailView):
 
 class StudentCreateView(CreateView):
     model = Student
-    # fields = ('first_name', 'last_name', 'avatar')
     success_url = reverse_lazy('main:index')
 
     form_class = StudentForm
@@ -38,7 +37,6 @@ class StudentCreateView(CreateView):
 
 class StudentUpdateView(UpdateView):
     model = Student
-    # fields = ('first_name', 'last_name', 'avatar')
     success_url = reverse_lazy('main:index')
     form_class = StudentForm
 
