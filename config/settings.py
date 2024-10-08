@@ -118,12 +118,10 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 #  отвечает за место на диске, откуда необходимо подгружать статику
-STATICFILES_DIRS = (
-    BASE_DIR / 'dogs/static',
-)
+STATICFILES_DIRS = (BASE_DIR / "dogs/static",)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"

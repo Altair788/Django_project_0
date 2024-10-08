@@ -17,14 +17,14 @@ class Dog(models.Model):
         max_length=100, verbose_name="Кличка", help_text="Введите кличку собаки"
     )
     breed = models.ForeignKey(
-        to='Breed',
+        to="Breed",
         on_delete=models.SET_NULL,
         **NULLABLE,
         verbose_name="Порода",
         help_text="Введите породу собаки",
         #  у породы будет неявный параметр собаки, т к у одной породы
         #  может быть много собак
-        related_name='dogs',
+        related_name="dogs",
     )
     photo = models.ImageField(
         upload_to="dogs/photo",
@@ -38,16 +38,14 @@ class Dog(models.Model):
     views_counter = models.PositiveIntegerField(
         verbose_name="Счетчик просмотров",
         help_text="Укажите количество просмотров",
-        default=0
+        default=0,
     )
 
     def __str__(self):
         """
         Строковое представление класса Собака
         """
-        return (
-            f"{self.name}, {self.date_born} г.р., порода: {self.breed}"
-        )
+        return f"{self.name}, {self.date_born} г.р., порода: {self.breed}"
 
     class Meta:
         verbose_name = "собака"
@@ -82,3 +80,53 @@ class Breed(models.Model):
     class Meta:
         verbose_name = "порода"
         verbose_name_plural = "породы"
+
+
+class Parent(models.Model):
+    """
+    Представляет класс Предок
+    """
+
+    dog = models.ForeignKey(
+        Dog,
+        related_name="parents",
+        on_delete=models.SET_NULL,
+        **NULLABLE,
+        verbose_name="Собака",
+    )
+
+    name = models.CharField(
+        max_length=100, verbose_name="Кличка", help_text="Введите кличку собаки"
+    )
+    breed = models.ForeignKey(
+        to="Breed",
+        on_delete=models.SET_NULL,
+        **NULLABLE,
+        verbose_name="Порода",
+        help_text="Введите породу собаки",
+        #  у породы будет неявный параметр собаки, т к у одной породы
+        #  может быть много собак
+        related_name="parent_dogs",
+    )
+
+    year_born = models.PositiveIntegerField(
+        verbose_name="Год рождения",
+        help_text="Укажите год рождения",
+        default=0,
+        **NULLABLE,
+    )
+
+    def __str__(self):
+        """
+        Строковое представление класса Предок
+        """
+        return f"{self.name}, {self.year_born} г.р., порода: {self.breed}"
+
+    class Meta:
+        verbose_name = "Собака - родитель"
+        verbose_name_plural = "Собаки - родители"
+        ordering = (
+            "year_born",
+            "breed",
+            "name",
+        )
