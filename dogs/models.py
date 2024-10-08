@@ -96,14 +96,16 @@ class Parent(models.Model):
     )
 
     name = models.CharField(
-        max_length=100, verbose_name="Кличка", help_text="Введите кличку собаки"
+        max_length=100,
+        verbose_name="Кличка",
+        help_text="Введите кличку собаки - родителя",
     )
     breed = models.ForeignKey(
         to="Breed",
         on_delete=models.SET_NULL,
         **NULLABLE,
         verbose_name="Порода",
-        help_text="Введите породу собаки",
+        help_text="Введите породу собаки - родителя",
         #  у породы будет неявный параметр собаки, т к у одной породы
         #  может быть много собак
         related_name="parent_dogs",
@@ -111,7 +113,7 @@ class Parent(models.Model):
 
     year_born = models.PositiveIntegerField(
         verbose_name="Год рождения",
-        help_text="Укажите год рождения",
+        help_text="Укажите год рождения собаки - родителя",
         default=0,
         **NULLABLE,
     )

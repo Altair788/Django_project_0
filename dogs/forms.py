@@ -12,5 +12,4 @@ class DogForm(ModelForm):
 
 class ParentForm(ModelForm):
     model = Parent
-    fields = '__all__'
-
+    fields = "__all__"

@@ -42,16 +42,20 @@ class DogUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
-        DogFormset = inlineformset_factory(Dog, Parent, ParentForm, fields='__all__', extra=1)
-        if self.request.method == 'POST':
-            context_data['formset'] = DogFormset(self.request.POST, instance=self.object)
+        DogFormset = inlineformset_factory(
+            Dog, Parent, ParentForm, fields="__all__", extra=1
+        )
+        if self.request.method == "POST":
+            context_data["formset"] = DogFormset(
+                self.request.POST, instance=self.object
+            )
         else:
-            context_data['formset'] = DogFormset(instance=self.object)
+            context_data["formset"] = DogFormset(instance=self.object)
         return context_data
 
     def form_valid(self, form):
         context_data = self.get_context_data()
-        formset = context_data['formset']
+        formset = context_data["formset"]
         if form.is_valid() and formset.is_valid():
             self.object = form.save()
             formset.instance = self.object
@@ -59,7 +63,9 @@ class DogUpdateView(UpdateView):
             return super().form_valid(form)
 
         else:
-            return self.render_to_response(self.get_context_data(form=form, formset=formset))
+            return self.render_to_response(
+                self.get_context_data(form=form, formset=formset)
+            )
 
 
 class DogDeleteView(DeleteView):
