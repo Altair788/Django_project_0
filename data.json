@@ -1,0 +1,53 @@
+[
+  {
+    "model": "main.student",
+    "pk": 1,
+    "fields": {
+      "first_name": "Хикару",
+      "last_name": "Танака",
+      "avatar": "students/IMG_2775.JPG",
+      "is_active": true,
+      "email": null
+    }
+  },
+  {
+    "model": "main.student",
+    "pk": 3,
+    "fields": {
+      "first_name": "Мария",
+      "last_name": "Ефимова",
+      "avatar": "students/IMG_2773.JPG",
+      "is_active": true,
+      "email": null
+    }
+  },
+  {
+    "model": "main.student",
+    "pk": 4,
+    "fields": {
+      "first_name": "Патрик",
+      "last_name": "Суэйзи",
+      "avatar": "students/photo_2023-10-30_18.10.11.jpeg",
+      "is_active": true,
+      "email": "m@sky.pro"
+    }
+  },
+  {
+    "model": "main.subject",
+    "pk": 2,
+    "fields": {
+      "title": "Philosofy",
+      "description": "ScyFy",
+      "student": 4
+    }
+  },
+  {
+    "model": "main.subject",
+    "pk": 4,
+    "fields": {
+      "title": "Django",
+      "description": "skdhflskdf",
+      "student": 3
+    }
+  }
+]

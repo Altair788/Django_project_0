@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Students list</title>
+</head>
+<body>
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="name"/>
+    <input type="submit" value="Отправить"/>
+</form>
+</body>
+</html>
+<!--<link rel="stylesheet" type="text/css" href="/static/students/css/your_stylesheet.css">-->
+<!-- Пример: подключение статического JS-файла -->
+<!--<script type="text/javascript" src="/static/your_app/js/your_script.js"></script>-->
+
+<!-- Пример: вставка статического изображения -->
+<!--<img src="/static/your_app/images/your_image.png" alt="Your Image">-->
