@@ -6,6 +6,11 @@
         <li><a href="{% url 'main:contact' %}" class="text-white">Контакты</a></li>
 
         {% if user.is_authenticated %}
+        <form method="post" action="{% url 'users:profile' %}" style="display:inline;">
+            {% csrf_token %}
+            <a href="#" onclick="event.preventDefault(); this.closest('form').submit();" class="text-white">Профиль</a>
+        </form>
+        <br>
         <form method="post" action="{% url 'users:logout' %}" style="display:inline;">
             {% csrf_token %}
             <a href="#" onclick="event.preventDefault(); this.closest('form').submit();" class="text-white">Выйти</a>
