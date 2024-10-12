@@ -132,3 +132,6 @@ AUTH_USER_MODEL = 'users_alt.User'
 #  чтобы не переопределить стандартные методы аутентификации Django эти параметры указаны в модедли
 # USERNAME_FIELD = "email"
 # REQUIRED_FIELDS = []
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
