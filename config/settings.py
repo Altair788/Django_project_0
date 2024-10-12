@@ -140,11 +140,10 @@ LOGOUT_REDIRECT_URL = '/'
 
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = "your@yandex.ru"
-EMAIL_HOST_PASSWORD = "password"
+EMAIL_HOST_USER = 'slobodyanikeduard@yandex.ru'
+EMAIL_HOST_PASSWORD = "chovealcqzpavhle"
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 
-
-SERVER_EMAIL = "slobodyanikeduard@yandex.ru"
-DEFAULT_FROM_EMAIL = "slobodyanikeduard@yandex.ru"
+SERVER_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
