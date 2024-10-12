@@ -19,7 +19,7 @@ class DogForm(StyleFormMixin, ModelForm):
     class Meta:
         model = Dog
         # fields = ('__all__')
-        exclude = ("views_counter",)
+        exclude = ("views_counter", "owner")
 
 
 class ParentForm(StyleFormMixin, ModelForm):

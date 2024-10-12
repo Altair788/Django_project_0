@@ -1,6 +1,7 @@
 from django.db import models
 
 import dogs.models
+from users_alt.models import User
 
 NULLABLE = {"blank": True, "null": True}
 
@@ -40,6 +41,9 @@ class Dog(models.Model):
         help_text="Укажите количество просмотров",
         default=0,
     )
+
+
+    owner = models.ForeignKey(User, verbose_name='Владелец', help_text='Укажите владельца собаки', blank=True, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         """
