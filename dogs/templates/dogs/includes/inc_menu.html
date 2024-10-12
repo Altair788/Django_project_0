@@ -13,6 +13,7 @@
                     {% if user.is_authenticated %}
                     <li><a href="{% url 'users_alt:logout' %}" class="text-white">Выход</a></li>
                     {% else %}
+                    <li><a href="{% url 'users_alt:register' %}" class="text-white">Зарегистрироваться</a></li>
                     <li><a href="{% url 'users_alt:login' %}" class="text-white">Вход</a></li>
                     {% endif %}
                 </ul>
