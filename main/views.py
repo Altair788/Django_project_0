@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import inlineformset_factory
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
@@ -6,7 +8,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from main.models import Student, Subject
 from main.forms import StudentForm, SubjectForm
 
-
+@login_required
 def contact(request):
     if request.method == "POST":
         name = request.POST.get("name")
@@ -20,22 +22,22 @@ def contact(request):
     return render(request, 'main/contact.html', context)
 
 
-class StudentListView(ListView):
+class StudentListView(LoginRequiredMixin, ListView):
     model = Student
 
 
-class StudentDetailView(DetailView):
+class StudentDetailView(LoginRequiredMixin, DetailView):
     model = Student
 
 
-class StudentCreateView(CreateView):
+class StudentCreateView(LoginRequiredMixin, CreateView):
     model = Student
     success_url = reverse_lazy('main:index')
 
     form_class = StudentForm
 
 
-class StudentUpdateView(UpdateView):
+class StudentUpdateView(LoginRequiredMixin, UpdateView):
     model = Student
     success_url = reverse_lazy('main:index')
     form_class = StudentForm
@@ -60,7 +62,7 @@ class StudentUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class StudentDeleteView(DeleteView):
+class StudentDeleteView(LoginRequiredMixin, DeleteView):
     model = Student
     success_url = reverse_lazy('main:index')
 
