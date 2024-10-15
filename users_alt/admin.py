@@ -5,5 +5,4 @@ from users_alt.models import User
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ("email", "phone", "tg_name",)
-
+    list_display = ('id', "email", "phone", "tg_name",)
