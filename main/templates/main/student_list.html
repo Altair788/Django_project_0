@@ -29,7 +29,7 @@
                     <a href="{% url 'main:update_student' object.pk %}" type="button"
                        class="btn btn-sm btn-outline-secondary">Edit</a>
                     {% endif %}
-                    {% if perms.main.delete_student %}
+                    {% if user.is_superuser %}
                     <a href="{% url 'main:delete_student' object.pk %}" type="button"
                        class="btn btn-sm btn-outline-secondary">Delete</a>
                     {% endif %}
