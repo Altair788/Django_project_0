@@ -17,6 +17,9 @@ class Dog(models.Model):
     name = models.CharField(
         max_length=100, verbose_name="Кличка", help_text="Введите кличку собаки"
     )
+    description = models.TextField(
+        verbose_name="Описание собаки", help_text="Введите описание собаки", **NULLABLE
+    )
     breed = models.ForeignKey(
         to="Breed",
         on_delete=models.SET_NULL,
@@ -59,6 +62,10 @@ class Dog(models.Model):
             "breed",
             "name",
         )
+        permissions = [
+            ('can_edit_breed', 'can edit breed'),
+            ('can_edit_description', 'can edit description'),
+        ]
 
 
 class Breed(models.Model):

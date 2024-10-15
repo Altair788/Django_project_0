@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
 from django.urls import reverse_lazy, reverse
 from django.views.generic import (
@@ -9,7 +10,7 @@ from django.views.generic import (
     DeleteView,
 )
 
-from dogs.forms import DogForm, ParentForm
+from dogs.forms import DogForm, ParentForm, DogModeratorForm
 from dogs.models import Dog, Parent
 
 
@@ -41,7 +42,7 @@ class DogCreateView(CreateView, LoginRequiredMixin):
         return super().form_valid(form)
 
 
-class DogUpdateView(UpdateView):
+class DogUpdateView(LoginRequiredMixin, UpdateView):
     model = Dog
     form_class = DogForm
     success_url = reverse_lazy("dogs:dogs_list")
@@ -61,6 +62,14 @@ class DogUpdateView(UpdateView):
         else:
             context_data["formset"] = DogFormset(instance=self.object)
         return context_data
+
+    def get_form_class(self):
+        user = self.request.user
+        if user == self.object.owner:
+            return DogForm
+        if user.has_perm('dogs.can_edit_breed') and user.has_perm('can_edit_description'):
+            return DogModeratorForm
+        raise PermissionDenied
 
     def form_valid(self, form):
         context_data = self.get_context_data()
