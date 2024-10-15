@@ -1,5 +1,5 @@
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.forms import inlineformset_factory
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
@@ -7,6 +7,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 
 from main.models import Student, Subject
 from main.forms import StudentForm, SubjectForm
+
 
 @login_required
 def contact(request):
@@ -22,25 +23,28 @@ def contact(request):
     return render(request, 'main/contact.html', context)
 
 
-class StudentListView(LoginRequiredMixin, ListView):
+class StudentListView(LoginRequiredMixin, PermissionRequiredMixin,ListView):
     model = Student
+    permission_required = 'main.view_student'
 
 
-class StudentDetailView(LoginRequiredMixin, DetailView):
+class StudentDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Student
+    permission_required = 'main.view_student'
 
 
-class StudentCreateView(LoginRequiredMixin, CreateView):
-    model = Student
-    success_url = reverse_lazy('main:index')
-
-    form_class = StudentForm
-
-
-class StudentUpdateView(LoginRequiredMixin, UpdateView):
+class StudentCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Student
     success_url = reverse_lazy('main:index')
     form_class = StudentForm
+    permission_required = 'main.add_student'
+
+
+class StudentUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    model = Student
+    success_url = reverse_lazy('main:index')
+    form_class = StudentForm
+    permission_required = 'main.change_student'
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
@@ -62,10 +66,10 @@ class StudentUpdateView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 
-class StudentDeleteView(LoginRequiredMixin, DeleteView):
+class StudentDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Student
     success_url = reverse_lazy('main:index')
-
+    permission_required = 'main.delete_student'
 
 def toggle_activity(request, pk):
     student_item = get_object_or_404(Student, pk=pk)
