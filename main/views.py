@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.forms import inlineformset_factory
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
@@ -66,10 +66,12 @@ class StudentUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
         return super().form_valid(form)
 
 
-class StudentDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+class StudentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Student
     success_url = reverse_lazy('main:index')
-    permission_required = 'main.delete_student'
+
+    def test_func(self):
+        return self.request.user.is_superuser
 
 def toggle_activity(request, pk):
     student_item = get_object_or_404(Student, pk=pk)
