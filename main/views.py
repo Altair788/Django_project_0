@@ -23,7 +23,7 @@ def contact(request):
     return render(request, 'main/contact.html', context)
 
 
-class StudentListView(LoginRequiredMixin, PermissionRequiredMixin,ListView):
+class StudentListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = Student
     permission_required = 'main.view_student'
 
