@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
+from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy, reverse
 from django.views.generic import (
     ListView,
@@ -18,14 +19,16 @@ class DogListView(ListView):
     model = Dog
 
 
-class DogDetailView(DetailView):
+class DogDetailView(DetailView, LoginRequiredMixin):
     model = Dog
 
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
-        self.object.views_counter += 1
-        self.object.save()
-        return self.object
+        if self.request.user == self.object.owner:
+            self.object.views_counter += 1
+            self.object.save()
+            return self.object
+        raise PermissionDenied
 
 
 class DogCreateView(CreateView, LoginRequiredMixin):
@@ -63,6 +66,7 @@ class DogUpdateView(LoginRequiredMixin, UpdateView):
             context_data["formset"] = DogFormset(instance=self.object)
         return context_data
 
+    #позволяет ограничить взаимодействие с карточкой собаки (тут - редактирование)
     def get_form_class(self):
         user = self.request.user
         if user == self.object.owner:
@@ -70,6 +74,15 @@ class DogUpdateView(LoginRequiredMixin, UpdateView):
         if user.has_perm('dogs.can_edit_breed') and user.has_perm('can_edit_description'):
             return DogModeratorForm
         raise PermissionDenied
+
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        if self.request.user == self.object.owner:
+            self.object.views_counter += 1
+            self.object.save()
+            return self.object
+        raise PermissionDenied
+
 
     def form_valid(self, form):
         context_data = self.get_context_data()
