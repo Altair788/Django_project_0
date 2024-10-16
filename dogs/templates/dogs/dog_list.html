@@ -22,9 +22,10 @@
                                 {% endif %}
                                 <a class="btn btn-primary" href="{% url 'dogs:dogs_detail' dog.pk %}"
                                    role="button">Посмотреть</a>
-
+                                {% if user.is_superuser %}
                                 <a class="btn btn-primary" href="{% url 'dogs:dogs_delete' dog.pk %}"
                                    role="button">Удалить</a>
+                                {% endif %}
                             </div>
 
                         </div>
