@@ -17,6 +17,7 @@ phonenumbers = "^8.13.47"
 django = "4.2.2"
 crispy-bootstrap4 = "^2024.10"
 redis = "^5.1.1"
+python-dotenv = "^1.0.1"
 
 
 [build-system]

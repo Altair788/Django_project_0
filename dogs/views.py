@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
 from django.http import HttpResponseForbidden
@@ -11,12 +12,17 @@ from django.views.generic import (
     DeleteView,
 )
 
+from config.settings import CACHE_ENABLED
 from dogs.forms import DogForm, ParentForm, DogModeratorForm
 from dogs.models import Dog, Parent
+from dogs.services import get_dogs_from_cache
 
 
 class DogListView(ListView):
     model = Dog
+
+    def get_queryset(self):
+        return get_dogs_from_cache()
 
 
 class DogDetailView(LoginRequiredMixin, DetailView):
