@@ -19,23 +19,20 @@ class DogListView(ListView):
     model = Dog
 
 
-class DogDetailView(DetailView, LoginRequiredMixin):
+class DogDetailView(LoginRequiredMixin, DetailView):
     model = Dog
 
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
-        if self.request.user == self.object.owner:
-            self.object.views_counter += 1
-            self.object.save()
-            return self.object
-        raise PermissionDenied
+        self.object.views_counter += 1
+        self.object.save()
+        return self.object
 
 
-class DogCreateView(CreateView, LoginRequiredMixin):
+class DogCreateView(LoginRequiredMixin, CreateView):
     model = Dog
     form_class = DogForm
     success_url = reverse_lazy("dogs:dogs_list")
-
 
     def form_valid(self, form):
         dog = form.save()
@@ -66,24 +63,6 @@ class DogUpdateView(LoginRequiredMixin, UpdateView):
             context_data["formset"] = DogFormset(instance=self.object)
         return context_data
 
-    #позволяет ограничить взаимодействие с карточкой собаки (тут - редактирование)
-    def get_form_class(self):
-        user = self.request.user
-        if user == self.object.owner:
-            return DogForm
-        if user.has_perm('dogs.can_edit_breed') and user.has_perm('can_edit_description'):
-            return DogModeratorForm
-        raise PermissionDenied
-
-    def get_object(self, queryset=None):
-        self.object = super().get_object(queryset)
-        if self.request.user == self.object.owner:
-            self.object.views_counter += 1
-            self.object.save()
-            return self.object
-        raise PermissionDenied
-
-
     def form_valid(self, form):
         context_data = self.get_context_data()
         formset = context_data["formset"]
@@ -97,6 +76,15 @@ class DogUpdateView(LoginRequiredMixin, UpdateView):
             return self.render_to_response(
                 self.get_context_data(form=form, formset=formset)
             )
+
+    # позволяет ограничить взаимодействие с карточкой собаки (тут - редактирование)
+    def get_form_class(self):
+        user = self.request.user
+        if user == self.object.owner:
+            return DogForm
+        if user.has_perm('dogs.can_edit_breed') and user.has_perm('dogs.can_edit_description'):
+            return DogModeratorForm
+        raise PermissionDenied
 
 
 class DogDeleteView(DeleteView):
