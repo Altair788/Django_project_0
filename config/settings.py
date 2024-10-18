@@ -12,9 +12,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+dot_env = os.path.join(BASE_DIR, '.env_alt')
+load_dotenv(dotenv_path=dot_env)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -23,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", False) == "True"
 
 ALLOWED_HOSTS = []
 
@@ -78,11 +80,11 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "Django_20_alt_task_db",  # Название БД
-        "USER": "altair",  # Пользователь для подключения
-        "PASSWORD": "",  # Пароль для этого пользователя
-        "HOST": "127.0.0.1",  # Адрес, на котором развернут сервер БД ('local', 'localhost')
-        "PORT": 5432,  # Порт, на котором работает сервер БД
+        "NAME": os.getenv("NAME"),  # Название БД
+        "USER": os.getenv("USER"),  # Пользователь для подключения
+        "PASSWORD": os.getenv("PASSWORD"),  # Пароль для этого пользователя
+        "HOST": os.getenv("HOST"),  # Адрес, на котором развернут сервер БД ('local', 'localhost')
+        "PORT": os.getenv("PORT"),  # Порт, на котором работает сервер БД
     }
 }
 
@@ -140,12 +142,12 @@ LOGOUT_REDIRECT_URL = '/'
 
 
 
-EMAIL_HOST = 'smtp.yandex.ru'
-EMAIL_PORT = 465
-EMAIL_HOST_USER = 'slobodyanikeduard@yandex.ru'
-EMAIL_HOST_PASSWORD = "chovealcqzpavhle"
-EMAIL_USE_TLS = False
-EMAIL_USE_SSL = True
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = os.getenv("EMAIL_HOST")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", True) == "False"
+EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL", False) == "True"
 
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
@@ -159,6 +161,6 @@ if CACHE_ENABLED:
     CACHES = {
         "default": {
             "BACKEND": "django.core.cache.backends.redis.RedisCache",
-            "LOCATION": 'redis://127.0.0.1:6379',
+            "LOCATION": os.getenv("LOCATION"),
         }
     }
